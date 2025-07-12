@@ -65,3 +65,5 @@ def solution(p):
 p = "()))((()"
 ans = solution(p)
 print(ans)
+
+#349 부터
