@@ -33,7 +33,7 @@ def solution(relation):
                         if p == c:
                             match_count += 1
                             break
-                # prev 크기만큼 다 카운트됐으면 prev  cols
+                # prev 크기만큼 다 카운트됐으면 prev ⊆ cols
                 if match_count == len(prev):
                     minimal = False
                     break
