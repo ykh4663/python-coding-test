@@ -1,6 +1,6 @@
 class Solution {
     private String convert(int n, int k) {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder();//String 타입은 불변이므로 StringBuilder로 값 이어서 붙인 후에 toString으로 변환하기
 		while(n > 0) {
 			sb.append(n % k);
 			n /=k;
