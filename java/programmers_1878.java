@@ -8,12 +8,12 @@ class Solution {
         Map<Integer,Integer>cols = new HashMap<>();
         for(int i = 0; i < 3; i++)
         {
-            rows.put(v[i][0], rows.getOrDefault(v[i][0], 0)+1);
+            rows.put(v[i][0], rows.getOrDefault(v[i][0], 0)+1);//put
             cols.put(v[i][1], cols.getOrDefault(v[i][1], 0)+1);
         }
         
-        for(Map.Entry<Integer, Integer> r : rows.entrySet()){
-            int x = r.getKey();
+        for(Map.Entry<Integer, Integer> r : rows.entrySet()){//Map.Etry<> 꺼낼때는 entrySet()
+            int x = r.getKey();//key value값 각각 getKey, getValue로
             int cnt = r.getValue();
             if(cnt == 1){
                 answer[0] = x;
