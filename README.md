@@ -1,12 +1,14 @@
 # Problem Solving 🏃‍♂️
 
 알고리즘 및 SQL 문제 풀이 기록 저장소입니다.  
-주로 **Python**을 사용하며, 보조 언어로 **Java**를 사용하여 풀이합니다.
+알고리즘은 주로 **Python**을 사용하며, 보조 언어로 **Java**, **C** 를 사용하여 풀이합니다.
+SQL은 **MySQL**을 사용합니다.
 
 ## 🔧 Languages
 * **Python 3** (Main)
 * **Java 11+** (Sub)
-* **MySQL**
+* **C99** (Sub)
+* **MySQL** (SQL)
 
 ## 📚 Sites
 * [백준 온라인 저지 (BOJ)](https://www.acmicpc.net/)
