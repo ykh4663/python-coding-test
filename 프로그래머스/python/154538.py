@@ -49,7 +49,7 @@ def solution(x, y, n):
             if curr // 2 == x: 
                 return cnt + 1
             if curr // 2 > x and visited[curr // 2] == False:
-                visited[curr // 2] == True
+                visited[curr // 2] = True
                 q.append((curr // 2, cnt + 1))
                 
         # 3. 3으로 나누는 경우
@@ -57,7 +57,7 @@ def solution(x, y, n):
             if curr // 3 == x: 
                 return cnt + 1
             if curr // 3 > x and visited[curr // 3] == False:
-                visited[curr // 3] == True
+                visited[curr // 3] = True
                 q.append((curr // 3, cnt + 1))
                 
     return -1
