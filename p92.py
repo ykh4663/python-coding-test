@@ -11,3 +11,4 @@ count = int(m / (k+1)) * k
 count += m % (k+1)
 ans = count * first + (m - count) * second
 print(ans)
+#git test
