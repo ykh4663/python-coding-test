@@ -197,47 +197,109 @@
 # print(solution(n, k))
 
 
+#92341_programmers_주차요금계산하기
+# from collections import defaultdict
+# import math
+
+# def convert(elem):
+#     time = elem.split(":")
+#     hour = int(time[0])
+#     minute = int(time[1])
+#     return hour * 60 + minute
+
+# def solution(fees, records):
+#     default_time = fees[0]
+#     default_fee = fees[1]
+#     per_time = fees[2]
+#     per_fee = fees[3]
+
+#     car_dict = dict()
+#     total = defaultdict(int)
+
+#     for record in records:
+#         r = record.split(" ")
+#         str_time = r[0]
+#         car_num = r[1]
+#         iout = r[2]
+#         cur = convert(str_time)
+#         if(iout == "IN"):
+#             car_dict[car_num] = cur
+
+#         else:
+#             prev = car_dict.pop(car_num)
+#             total[car_num] += (cur - prev)
+    
+#     for ky, prev in car_dict.items():
+#         cur = convert("23:59")
+#         total[ky] += (cur - prev)
+    
+
+#     lst = list(total.keys())
+#     lst.sort()
+
+#     answer = []
+#     for cn in lst:
+#         if(total[cn] <= default_time):
+#             answer.append(default_fee)
+#         else:
+#             answer.append( default_fee + math.ceil((total[cn] - default_time) / per_time) * per_fee )
+    
+
+#     return answer
 
 
+
+    
+
+
+
+            
+# fees = [180, 5000, 10, 600]
+# records = ["05:34 5961 IN", "06:00 0000 IN", "06:34 0000 OUT", "07:59 5961 OUT", "07:59 0148 IN", "18:59 0000 IN", "19:09 0148 OUT", "22:59 5961 IN", "23:00 5961 OUT"]
+# result = solution(fees, records)
+# print(result)
+
+
+#131127_programmers_할인행사
 
 from collections import defaultdict
-import math
-def convert(time):
-    h,m = time.split(":")
-    h,m = int(h), int(m)
-    return h * 60 + m
+def solution(want, number, discount):
+    dct = defaultdict(int)
+    cum_len = 10
+    for i in range(len(want)):
+        dct[want[i]] = number[i]
+    dlen = len(discount)
+    total = 0
     
-def solution(fees, records):
-    d_t, d_f, p_t, p_f = fees
-    records_dict = dict()
-    cumulate_time = defaultdict(int)# 그냥 딕셔너리는 dict(), defaultdict는 defaultdict(int)로 선언하면 됨
-    for r in records:
-        time, car_num, trigger = r.split(" ")
-        cur_time = convert(time)
-        if(trigger == "IN"):
-            records_dict[car_num] = cur_time
-        else:
-            prev_time = records_dict.pop(car_num) # popㅇ로 꺼냄 주의
-            cumulate_time[car_num] += (cur_time - prev_time)
-    if(len(records_dict) != 0):
-        for ky, vl in records_dict.items(): # 키 밸류 값 items()로 뽑을 수 있음
-            cur_time = convert("23:59")
-            cumulate_time[ky] += (cur_time - vl)
-    lst = []
-    for ky in cumulate_time.keys(): # 키 값만 뽑을 떄는 keys()
-        lst.append(ky)
-    lst.sort()
-    ans = []
-    for l in lst:
-        car, cum = l, cumulate_time[l]
-        if(cum<=d_t):
-            ans.append(d_f)
-        else:
-            ans.append(d_f+math.ceil((cum-d_t)/p_t)*p_f)
-    return ans
-        
+    # 0 1 2 3 4 5   6 - 3 = 3
+    # 0 1 2
     
-            
-            
+    for i in range(dlen-cum_len+1):
+        tmp = defaultdict(int)
+        for j in range(cum_len):
+            tmp[discount[i+j]] +=1
+        gOrStop = 0
         
+        for key in tmp.keys():
+            if key not in dct.keys():
+                gOrStop = 1
+                break
+            if(tmp[key] != dct[key]):
+                gOrStop = 1
+                break
+        if(gOrStop == 0):
+            total+=1
+
+                
+    return total  
+        
+        
+
+
+want = ["banana", "apple", "rice", "pork", "pot"]
+number = [3, 2, 2, 2, 1]
+discount = ["chicken", "apple", "apple", "banana", "rice", "apple", "pork", "banana", "pork", "rice", "pot", "banana", "apple", "banana"]
+result = solution(want, number, discount)
+print(result)
+
 
