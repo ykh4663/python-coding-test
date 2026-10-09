@@ -262,44 +262,107 @@
 
 #131127_programmers_할인행사
 
-from collections import defaultdict
-def solution(want, number, discount):
-    dct = defaultdict(int)
-    cum_len = 10
-    for i in range(len(want)):
-        dct[want[i]] = number[i]
-    dlen = len(discount)
-    total = 0
+# from collections import defaultdict
+# def solution(want, number, discount):
+#     dct = defaultdict(int)
+#     cum_len = 10
+#     for i in range(len(want)):
+#         dct[want[i]] = number[i]
+#     dlen = len(discount)
+#     total = 0
     
-    # 0 1 2 3 4 5   6 - 3 = 3
-    # 0 1 2
+#     # 0 1 2 3 4 5   6 - 3 = 3
+#     # 0 1 2
     
-    for i in range(dlen-cum_len+1):
-        tmp = defaultdict(int)
-        for j in range(cum_len):
-            tmp[discount[i+j]] +=1
-        gOrStop = 0
+#     for i in range(dlen-cum_len+1):
+#         tmp = defaultdict(int)
+#         for j in range(cum_len):
+#             tmp[discount[i+j]] +=1
+#         gOrStop = 0
         
-        for key in tmp.keys():
-            if key not in dct.keys():
-                gOrStop = 1
-                break
-            if(tmp[key] != dct[key]):
-                gOrStop = 1
-                break
-        if(gOrStop == 0):
-            total+=1
+#         for key in tmp.keys():
+#             if key not in dct.keys():
+#                 gOrStop = 1
+#                 break
+#             if(tmp[key] != dct[key]):
+#                 gOrStop = 1
+#                 break
+#         if(gOrStop == 0):
+#             total+=1
 
                 
-    return total  
+#     return total  
         
         
 
 
-want = ["banana", "apple", "rice", "pork", "pot"]
-number = [3, 2, 2, 2, 1]
-discount = ["chicken", "apple", "apple", "banana", "rice", "apple", "pork", "banana", "pork", "rice", "pot", "banana", "apple", "banana"]
-result = solution(want, number, discount)
-print(result)
+# want = ["banana", "apple", "rice", "pork", "pot"]
+# number = [3, 2, 2, 2, 1]
+# discount = ["chicken", "apple", "apple", "banana", "rice", "apple", "pork", "banana", "pork", "rice", "pot", "banana", "apple", "banana"]
+# result = solution(want, number, discount)
+# print(result)
 
+
+
+# number = 13195
+# max_div = 0
+# for i in range(2,number):
+#     if(isPrime(i) and number % i == 0):
+        
+from itertools import combinations
+from collections import deque
+import copy
+
+dx = [1,-1,0,0]
+dy = [0,0,1,-1]
+
+def bfs(graph, sx, sy, n, m):
+    q = deque()
+    q.append((sx, sy))
+    graph[sx][sy] = 3
+    while q:
+        x,y = q.popleft()
+        for k in range(4):
+            nx = x + dx[k]
+            ny = y + dy[k]
+            if(0<=nx<n and  0<=ny<m):
+                if(graph[nx][ny]== 0 or graph[nx][ny] == 2):
+                    graph[nx][ny] = 3
+                    q.append((nx, ny))
+
+def findSafe(graph, n, m):
+    cnt = 0
+    for i in range(n):
+        for j in range(m):
+            if(graph[i][j] == 0):
+                cnt+=1
+    return cnt
+    
+
+
+n,m = map(int, input().split())
+lst = []
+for _ in range(n):
+    lst.append(list(map(int, input().split())))
+
+comb = []
+for i in range(n):
+    for j in range(m):
+        if(lst[i][j] == 0):
+            comb.append((i,j))
+comb = list(combinations(comb, 3))
+total = 0
+for c in comb:
+    graph = copy.deepcopy(lst)
+    (x1, y1), (x2, y2), (x3, y3) = c
+    graph[x1][y1] = graph[x2][y2] = graph[x3][y3] = 1
+    for i in range(n):
+        for j in range(m):
+            if(graph[i][j] == 2):
+                bfs(graph, i, j, n, m)
+    
+    total = max(total, findSafe(graph, n, m))
+print(total)
+
+            
 
