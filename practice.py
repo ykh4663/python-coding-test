@@ -404,4 +404,41 @@
 #     return answer
 
 
+from collections import deque
 
+def convert(elem):
+    h, m = elem.split(":")
+    return int(h) * 60 + int(m)
+
+def solution(plans):
+    q = deque()
+    plans.sort(key = lambda x : x[1])
+    plen = len(plans)
+    last_time = 0
+    result = []
+    for i in range(plen):
+        language, time, duration = plans[i]
+        t = convert(time)
+        time = t
+        duration = int(duration)
+        while q:
+            prev_lang, prev_time, prev_dur = q.pop()
+            if(time - prev_time >= prev_dur):
+                result.append(prev_lang)
+                time -= prev_dur
+                print(prev_lang, prev_dur)
+            else:
+                q.append((prev_lang, prev_time, prev_dur - (time-prev_time)))
+                break
+        q.append((language, t, duration))
+    while q:
+        l, t, d = q.pop()
+        result.append(l)
+    return result
+                
+                
+            
+
+plans = [["science", "12:40", "50"], ["music", "12:20", "40"], ["history", "14:00", "30"], ["computer", "12:30", "100"]]
+result = solution(plans)
+print(result)
