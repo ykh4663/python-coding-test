@@ -404,41 +404,393 @@
 #     return answer
 
 
-from collections import deque
+# from collections import deque
 
-def convert(elem):
-    h, m = elem.split(":")
-    return int(h) * 60 + int(m)
+# def convert(elem):
+#     h, m = elem.split(":")
+#     return int(h) * 60 + int(m)
 
-def solution(plans):
-    q = deque()
-    plans.sort(key = lambda x : x[1])
-    plen = len(plans)
-    last_time = 0
-    result = []
-    for i in range(plen):
-        language, time, duration = plans[i]
-        t = convert(time)
-        time = t
-        duration = int(duration)
-        while q:
-            prev_lang, prev_time, prev_dur = q.pop()
-            if(time - prev_time >= prev_dur):
-                result.append(prev_lang)
-                time -= prev_dur
-                print(prev_lang, prev_dur)
-            else:
-                q.append((prev_lang, prev_time, prev_dur - (time-prev_time)))
-                break
-        q.append((language, t, duration))
-    while q:
-        l, t, d = q.pop()
-        result.append(l)
-    return result
+# def solution(plans):
+#     q = deque()
+#     plans.sort(key = lambda x : x[1])
+#     plen = len(plans)
+#     last_time = 0
+#     result = []
+#     for i in range(plen):
+#         language, time, duration = plans[i]
+#         t = convert(time)
+#         time = t
+#         duration = int(duration)
+#         while q:
+#             prev_lang, prev_time, prev_dur = q.pop()
+#             if(time - prev_time >= prev_dur):
+#                 result.append(prev_lang)
+#                 time -= prev_dur
+#                 print(prev_lang, prev_dur)
+#             else:
+#                 q.append((prev_lang, prev_time, prev_dur - (time-prev_time)))
+#                 break
+#         q.append((language, t, duration))
+#     while q:
+#         l, t, d = q.pop()
+#         result.append(l)
+#     return result
                 
                 
             
 
-plans = [["science", "12:40", "50"], ["music", "12:20", "40"], ["history", "14:00", "30"], ["computer", "12:30", "100"]]
-result = solution(plans)
+# plans = [["science", "12:40", "50"], ["music", "12:20", "40"], ["history", "14:00", "30"], ["computer", "12:30", "100"]]
+# result = solution(plans)
+# print(result)
+
+
+
+# from collections import deque
+# dx = [1,-1,0,0]
+# dy = [0,0,1,-1]
+
+# def bfs(graph, s, e, n, m):
+#     visit = [[False] * m for _ in range(n)]
+#     q = deque()
+#     (sx, sy) = s
+#     (ex, ey) = e
+
+#     q.append((0, sx, sy))
+#     visit[sx][sy] = True
+#     while q:
+#         (weight, x, y) = q.popleft()
+#         if(x == ex and y == ey):
+#             return weight
+#         for k in range(4):
+#             nx = x + dx[k]
+#             ny = y + dy[k]
+#             if(0<=nx<n and 0<=ny<m):
+#                 if(visit[nx][ny] == False and graph[nx][ny] != 'X'):
+#                     visit[nx][ny] = True
+#                     q.append((weight+1, nx, ny))
+#     return -1
+    
+    
+    
+    
+# def solution(maps):
+
+#     r, c = len(maps), len(maps[0])
+    
+#     s,e,labber = 0,0, 0
+#     cnt = 0
+#     for i in range(r):
+#         for j in range(c):
+#             if(maps[i][j] == 'S'):
+#                 s = (i,j)
+#                 cnt+=1
+#             elif(maps[i][j] == 'E'):
+#                 e = (i,j)
+#                 cnt+=1
+#             elif(maps[i][j] == 'L'):
+#                 labber = (i,j)
+#                 cnt+=1
+#             if(cnt == 3):
+#                 break
+#         if(cnt == 3):
+#             break
+#     e1 = bfs(maps, s,labber, r, c)
+#     if(e1 == -1):
+#         return -1
+#     e2 = bfs(maps, labber, e, r, c)
+#     if(e2 == -1):
+#         return -1
+    
+#     answer = e1 + e2        
+#     return answer
+# maps = ["SOOOL","XXXXO","OOOOO","OXXXX","OOOOE"]
+# result = solution(maps)
+# print(result)
+
+# import sys
+# input = sys.stdin.readline
+# #k진수에서 소수 개수 구하기 2022 KAKAO BLIND RECRUITMENT
+# #게임 맵 최단거리
+# #N으로 표현 dp
+# MX = 8
+
+# def solution(N, number):
+#     dp = [set() for _ in range(MX+1)]
+#     for i in range(1,MX+1):
+#         rs = 0
+#         for j in range(i):
+#             rs = rs * 10 + N
+#         dp[i].add(rs)
+#         for j in range(1,i):
+#             for x in dp[j]:
+#                 for y in dp[i-j]:
+#                     dp[i].add(x+y)
+#                     dp[i].add(x-y)
+#                     dp[i].add(y-x)
+#                     dp[i].add(x*y)
+#                     if(x != 0):
+#                         dp[i].add(int(y/x))
+#                     if(y != 0):
+#                         dp[i].add(int(x/y))
+#         if number in dp[i]:
+#             return i
+#     return -1
+
+# from collections import deque
+# import copy
+# from itertools import combinations
+
+# dx = [1,-1,0,0]
+# dy = [0,0,1,-1]
+
+
+# def bfs(graph, visit, sx, sy, n, m):
+#     q = deque()
+#     q.append((sx, sy))
+#     visit[sx][sy] = True
+#     while q:
+#         x,y = q.popleft()
+#         for k in range(4):
+#             nx = x + dx[k]
+#             ny = y + dy[k]
+#             if(0<=nx<n and 0<=ny<m):
+#                 if(graph[nx][ny] != 1 and visit[nx][ny] == False):
+#                     graph[nx][ny] = 2
+#                     visit[nx][ny] = True
+#                     q.append((nx, ny))
+
+# def safeArea(graph, n, m):
+#     cnt = 0
+#     for i in range(n):
+#         for j in range(m):
+#             if(graph[i][j] == 0):
+#                 cnt+=1
+#     return cnt
+
+
+
+# n,m = map(int, input().split())
+# lst = [[0] * m for _ in range(n)]
+
+# comb = []
+
+# for i in range(n):
+#     elem = list(map(int, input().split()))
+#     for j in range(m):
+#         lst[i][j] = elem[j]
+#         if(elem[j] == 0):
+#             comb.append((i,j))
+
+
+# comb = list(combinations(comb, 3))
+# cnt = -1
+# for c in comb:
+#     visit = [[False] * m for _ in range(n)]
+#     tmp = copy.deepcopy(lst)
+#     (x1,y1), (x2,y2), (x3,y3) = c
+#     tmp[x1][y1] = tmp[x2][y2] = tmp[x3][y3] = 1
+#     for i in range(n):
+#         for j in range(m):
+#             if(tmp[i][j] == 2 and visit[i][j] == False):
+#                 bfs(tmp, visit, i, j, n, m)
+#     cnt = max(safeArea(tmp, n, m), cnt)
+# print(cnt)
+
+
+
+
+
+# from collections import deque
+
+# def isPush(elem):
+#     if(elem == '{' or elem == '[' or elem == '('):
+#         return True
+#     return False
+
+# def isPair(prev, cur):
+#     if((prev == '(' and cur == ')') or (prev == '{' and cur == '}') or (prev == '[' and cur == ']')):
+#         return True
+#     return False
+    
+    
+    
+# def solution(s):
+#     slen = len(s)
+#     cnt = 0
+#     for i in range(slen):
+#         tmp = ""
+#         gOrStop = 0
+#         tmp += s[i:slen]
+#         tmp += s[:i]
+#         print(tmp)
+#         q = deque()
+#         for j in range(slen):
+#             cur = tmp[j]
+#             if(isPush(cur)):
+#                 q.append(cur)
+#             else:
+#                 if(len(q) == 0):
+#                     gOrStop = 1
+#                     break
+#                 prev = q.pop()
+#                 if(isPair(prev, cur)):
+#                     continue
+#                 else:
+#                     gOrStop = 1
+#                     break
+            
+#         if(len(q) != 0):
+#             gOrStop = 1
+#         if(gOrStop == 0):
+#             cnt+=1
+            
+#     return cnt
+
+# s = "[](){}"
+# print(solution(s))
+
+    
+
+
+
+# def convert(n, k):
+#     lst = []
+#     while(n > 0):
+#         lst.append(str(n % k))
+#         n //= k
+#     lst.reverse()
+#     return "".join(lst)
+    
+# def isPrime(elem):
+#     if(elem < 2):
+#         return 0
+#     for i in range(2, int(elem ** 0.5) + 1):
+#         if(elem % i == 0):
+#             return 0
+#     return 1
+    
+# def solution(n, k):
+
+    
+#     elem = convert(n,k)
+    
+#     l = len(elem)
+#     prev = 0
+#     cnt = 0
+#     for i in range(l):
+#         if(elem[i] == '0'):
+#             if(prev != i):
+#                 cnt+=isPrime(int(elem[prev:i]))
+#             prev = i
+#     if(prev != l-1):
+#         cnt+=isPrime(int(elem[prev:l]))
+        
+    
+    
+#     return cnt
+# n = 437674
+# k = 3
+# print(solution(n,k))
+
+
+# import heapq
+# def convert(elem):
+#     h,m = elem.split(":")
+#     return int(h) * 60 + int(m)
+# def solution(book_time):
+#     answer = 0
+#     q_lst = []
+#     book_time.sort()
+#     blen = len(book_time)
+
+#     q_lst = [[] for _ in range(blen)]
+#     idx = 0
+#     for b in book_time:
+#         start, end = b
+#         cur_start, cur_end = convert(start), convert(end)
+#         gOrStop = 0
+#         if(idx != 0):
+#             for i in range(idx):
+#                 if(len(q_lst[i]) != 0):
+#                     prev_end = heapq.heappop(q_lst[i])
+#                     if(prev_end <= cur_start):
+#                         heapq.heappush(q_lst[i], cur_end + 10)
+#                         gOrStop = 1
+#                         break
+#                     else:
+#                         heapq.heappush(q_lst[i], prev_end)
+#         if(gOrStop == 0):
+#             heapq.heappush(q_lst[idx], cur_end+10)
+#             idx+=1
+
+            
+                    
+        
+        
+            
+    
+#     return idx
+
+# book_time = [["15:00", "17:00"], ["16:40", "18:20"], ["14:20", "15:20"], ["14:10", "19:20"], ["18:20", "21:20"]]
+# result = solution(book_time)
+# print(result)
+
+from collections import deque
+
+dx = [1,-1,0,0]
+dy = [0,0,1,-1]
+
+def bfs(graph, sx, sy, ex, ey, n, m):
+    q = deque()
+    q.append((0, sx, sy))
+    graph[sx][sy] = 'X'
+    while q:
+        w, x, y = q.popleft()
+        if(x == ex and y == ey):
+            return w
+        for k in range(4):
+            nx, ny = x, y
+            while(0<=nx<n and 0<=ny<m):
+                if(graph[nx][ny] != 'D'):
+                    nx+=dx[k]
+                    ny+=dy[k]
+                else:
+                    break
+            nx -= dx[k]
+            ny -= dy[k]
+            if(graph[nx][ny] == 'X'):
+                continue
+            q.append((w+1, nx, ny))
+            graph[nx][ny] = 'X'
+    return -1
+            
+            
+    
+
+def solution(board):
+    answer = 0
+    
+    r = len(board)
+    c = len(board[0])
+    graph = []
+    for i in range(r):
+        graph.append(list(s for s in board[i]))
+
+    cnt = 0
+    sx, sy, ex, ey = 0,0,0,0
+    for i in range(r):
+        for j in range(c):
+            if(graph[i][j] == 'R'):
+                cnt+=1
+                sx, sy = i,j
+            elif(graph[i][j] == 'G'):
+                cnt+=1
+                ex, ey = i,j
+            if(cnt == 2):
+                break
+        if(cnt == 2):
+            break
+    return bfs(graph, sx, sy, ex, ey, r, c)
+board = [".D.R", "....", ".G..", "...D"]
+result = solution(board)
 print(result)
